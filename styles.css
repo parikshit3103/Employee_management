@@ -1,0 +1,77 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ccc;
+}
+
+.container {
+  max-width: 900px; /* Increased width */
+  margin: 50px auto;
+  padding: 30px; /* Increased padding */
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form Styles */
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns */
+  gap: 20px; /* Increased gap between items */
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-group {
+  display: flex;
+  gap: 15px; /* Increased spacing for radio buttons */
+  align-items: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, select {
+  padding: 12px; /* Increased padding for inputs and dropdowns */
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Button Group */
+.button-group {
+  display: flex; /* Use flexbox for horizontal layout */
+  justify-content: flex-start; /* Align buttons to the start of the container */
+  align-items: center; /* Vertically center buttons if the height is larger */
+  grid-column: span 2; /* Span across both columns */
+  text-align: left; /* Align text to the left */
+}
+button {
+  padding: 12px 25px; /* Increased button size */
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px; /* Increased spacing between buttons */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+ 
