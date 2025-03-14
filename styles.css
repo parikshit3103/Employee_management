@@ -7,13 +7,12 @@ body {
 }
 
 .container {
-  max-width: 900px; /* Increased width */
+  max-width: 900px; 
   margin: 50px auto;
-  padding: 30px; /* Increased padding */
+  padding: 30px; 
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 
 
 h1 {
@@ -71,7 +70,73 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0f07ef;
 }
 
- 
+/* Header Styling */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ccc; 
+  color: white;
+  padding: 0px 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/* Logout Button Styling */
+.logout-btn {
+  background-color: #ccc;
+  color: #007bff;
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #272423;
+  color: rgb(246, 238, 238);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.dropbtn {
+  background-color: #e04c35;
+  color: rgb(210, 187, 33);
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e1d8d8;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: 1;
+  color: #333;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+h2 {
+  color:#272423;
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+ <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Employee Management</title>
   <link rel="stylesheet" href="styles.css">
@@ -20,9 +20,9 @@ ini_set('display_errors', 1);
 
 // Database connection
 $servername = "localhost";
-$username = "root";
-$password = "Dws@1234";
-$database = "employee_management";
+$username = "parikshit";
+$password = "dws@1234";
+$database = "employee_managementdb";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -67,9 +67,8 @@ if (isset($_POST['lastRecord'])) {
   }
 }
 
-//pervious button 
-if (isset($_POST['perviousRecord'])) {
-  //print_r($_POST);
+//previous button 
+if (isset($_POST['previousRecord'])) {
   //  echo 'button clicked';
   $imp_id = intval($_POST['employee_id']) - 1;
   //echo''. $imp_id .'';
@@ -91,7 +90,7 @@ if (isset($_POST['nextRecord'])) {
     WHERE employee_id = " . $imp_id . ";");
   if ($result->num_rows > 0) {
     $employee_data = $result->fetch_assoc();
-  }
+  }/* Center the login page content properly */
 }
 
 //new button 
@@ -254,7 +253,7 @@ $conn->close();
         <div class="button-group">
           <button class="first-record" name="firstRecord">
             <|< </button>
-              <button class="previous-record" name="perviousRecord">
+              <button class="previous-record" name="previousRecord">
                 <<< </button>
                   <button class="next-record" name="nextRecord">>>></button>
                   <button class="last-record" name="lastRecord">>|></button>

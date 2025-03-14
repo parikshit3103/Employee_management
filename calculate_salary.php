@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,17 +8,24 @@
 </head>
 <body>
 
+
     <div class="container">
 
     <?php
+
+
+session_start();
+
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database connection
 $servername = "localhost";
-$username = "root";
-$password = "Dws@1234";
-$database = "employee_management";
+$username = "parikshit";
+$password = "dws@1234";
+$database = "employee_managementdb";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -26,6 +33,35 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+// Handle logout request
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['logout'])) {
+    if (!isset($_SESSION['employee_id'])) {
+        header("Location: employee_id.php");
+        exit();
+    }
+
+    $employee_id = $_SESSION['employee_id']; // Retrieve employee ID from session
+    date_default_timezone_set('Asia/Kolkata'); // Set correct timezone
+            $today = date('Y-m-d');
+            $current_time = date('H:i:s');
+
+    // Update only the last logout time for the day
+    $updateLogout = "UPDATE attendance SET logout_time = ? WHERE employee_id = ? AND date = ?";
+    
+    if ($stmt = $conn->prepare($updateLogout)) {
+        $stmt->bind_param("sis", $current_time, $employee_id, $today);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    // Clear session after updating logout time
+    session_unset();
+    session_destroy();
+
+    // Redirect to the login page
+    header("Location: employee_id.php");
+    exit();
+}
 // to get the employee id
 $employee_id = isset($_GET['employee_id']) ? $_GET['employee_id'] : '';
 
@@ -94,7 +130,9 @@ if ($department == 'Sales' || $department == 'Developer') {
 // Calculate Salary/Month
 $salary_month = $basic_salary + $da + $hra + $ma + $conveyance + $bonus - $pf - $esi;
 
+$salary_annum = $salary_month * 12;
 if ($salary_annum <= 500000) {
+    $salary_annum = 0; 
     $tax = 0; 
 } elseif ($salary_annum > 500000 && $salary_annum <= 550000) {
     $tax = ($salary_annum - 500000) * 0.10;  
@@ -151,11 +189,41 @@ if(!empty($joiningDate)) {
     echo "Employee ID not provided.";
     exit;
 }
+
 ?>
 
-
     <!-- html section -->
-    <div class="employee-id-container">
+  
+    <header class="header">
+    <h2 class="title"> HRMS </h2>
+
+    <!-- Attendance Dropdown -->
+    <div class="dropdown">
+        <button class="dropbtn">Attendance</button>
+        <div class="dropdown-content">
+            <?php
+            $attendanceQuery = "SELECT date, login_time, logout_time, status FROM attendance WHERE employee_id = ? ORDER BY date DESC";
+            $stmt = $conn->prepare($attendanceQuery);
+            $stmt->bind_param("i", $employee_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                echo "<p><strong>Date:</strong> " . $row['date'] . " | <strong>Status:</strong> " . $row['status'] .
+                     " | <strong>Login:</strong> " . ($row['login_time'] ?? 'N/A') .
+                     " | <strong>Logout:</strong> " . ($row['logout_time'] ?? 'N/A') . "</p>";
+            }
+            ?>
+        </div>
+    </div>
+
+    <form action="calculate_salary.php" method="POST">
+        <button type="submit" name="logout" value="logout" class="logout-btn">Logout</button>
+    </form>
+</header>
+
+<div class="employee-id-container">
+
         <h1>Employee Salary Details</h1>
         <form action="calculate_salary.php" method="POST" id="salaryForm">
             <div class="form-row">
@@ -252,17 +320,10 @@ if(!empty($joiningDate)) {
     <input type="text" name="tax" value="<?php echo htmlspecialchars($tax); ?>" readonly>
 </div>
 </div>
-
-
-            <!--<div class="button-group">
-                <button type="button">Salary</button>
-                <button type="button">Salary/Month</button>
-                <button type="button">Salary with Bonus</button>
-                <button type="button">Salary/Annum</button>
-            </div> -->
-        </form>
+ 
     </div>
     </div>
-
+    
 </body>
 </html>
+

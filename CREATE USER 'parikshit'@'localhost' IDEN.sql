@@ -1,0 +1,4 @@
+CREATE USER 'parikshit'@'localhost' IDENTIFIED BY 'dws@1234';
+GRANT ALL PRIVILEGES ON *.* TO 'parikshit'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
