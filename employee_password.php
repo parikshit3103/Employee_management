@@ -85,11 +85,11 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Password</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style1.css">  <!-- style1.css file is used --> 
 </head>
 <body>
 
-    <div class="container">
+    <div class="login-container">
         <h2>Enter your password </h2>
 
        
@@ -98,12 +98,12 @@ $conn->close();
         <?php } ?>
 
         <form action="employee_password.php" method="POST">
-            <div class="form-row">
-                <label for="password">Password:</label>
-                <input type="password" name="password" required>
-            </div>
-            <br>
             <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+
+            </div>
+    
                 <button type="submit" class="btn">Login</button>
             </div>
         </form>
